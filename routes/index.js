@@ -193,3 +193,30 @@ router.delete('/profil', function (reeq, res, next) {
     res.redirect('/profil');
   });
 });
+
+
+// reset password
+router.get('/pass', function (req, res, next) {
+  res.render('pass', { title: 'reset password', info: req.flash('info') });
+});
+
+router.post('/pass', function (req, res, next) {
+  if (req.body.newpassword != req.body.renewpassword) {
+    req.flash('info', "new password does't macth!");
+    return res.redirect('/pass');
+  }
+
+  bcrypt.hash(req.body.newpassword, saltRound, function (err, data) {
+    if (err) {
+      req.flash('info', "fail to encrypt password");
+      return res.redirect('/pass');
+    }
+
+    pool.query('UPDATE public.user SET password = $1 WHERE iduser = $2 ', [hash, req.session.user.iduser], err => {
+      if (err) throw err;
+
+      req.flash('info', "yeay, your password has been reset! ");
+      req.redirect('/pass');
+    });
+  });
+});
