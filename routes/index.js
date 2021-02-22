@@ -119,3 +119,50 @@ router.get('/signin', function (req, res, next) {
     });
   });
 });
+
+// sign out
+router.get('/signout', function (req, res, next) {
+  res.session.destroy(function (err) {
+    res.redirect('/signin');
+  })
+});
+
+// register
+router.get('/register', function (req, res, next) {
+  res.render('register', { info: req.flash('info') });
+});
+
+router.post('/register', function (req, res, next) {
+  if (req.body.password != req.body.repassword) {
+    req.flash('info', "Pasword doesn't match!");
+    return res.redirect('/register');
+  }
+
+  pool.query('SELECT * from public.user WHERE email =$1', [req.body.email], (err, data) => {
+    if (err) {
+      req.flash('info', "fail to check user!");
+      return res.redirect('/register');
+    }
+
+    if (data.rows.length > 0) {
+      req.flash('info', "email is exist!");
+      return res.redirect('/register');
+    }
+
+    bcrypt.hash(req.body.password, saltRound, function (err, hash) {
+      if (err) {
+        req.flash('info', "fail to check user!");
+        return res.redirect('/register');
+      }
+
+      pool.query('INSERT INTO public.user (nama, email, password, nohandphone) VALUES ($1, $2, $3, $4)', [req.body.nama, req.body.email, hash, req.body.nohandphone], (err, data) => {
+        if (err) {
+          req.flash('info', "Fail to register your account!");
+          return res.redirect('/register');
+        }
+        req.flash('info', "Yeay, you have registered! Please sign in :)");
+        res.redirect('/signin');
+      })
+    });
+  })
+});
