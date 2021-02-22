@@ -220,3 +220,26 @@ router.post('/pass', function (req, res, next) {
     });
   });
 });
+
+// ads
+router.get('/ads', function (req, res, next) {
+  pool.query('SELECT * FROM public.user WHERE iduser = $1', [req.session.user.iduser], (err, data) => {
+    if (err) throw err;
+
+    res.render('ads', { title: 'create ads', data: data.rows, info: req.flash('info'), user: req.session.user });
+  });
+});
+
+router.post('/ads', function (req, res, next) {
+  const { kategori, judul, luastanah, luasbangunan, kamartidur, kamarmandi, lantai, fasilitas, carport, sertifikasi, harga, deskripsi, provinsi, kota, alamat, lat, lng } = req.body;
+
+  pool.query(`INSERT INTO public.iklan (kategori, judul, luastanah, luasbangunan, kamartidur, kamarmandi, lantai, fasilitas, carport, sertifikasi, harga, deskripsi, provinsi, kota, alamat, lat, lng, iduser')
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $16, $17, $18, $19)`, [kategori, judul, luastanah, luasbangunan, kamartidur, kamarmandi, lantai, fasilitas, carport, sertifikasi, harga, req.files.image.name, deskripsi, provinsi, kota, alamat, lat, lng, req.session.user.iduser], err => {
+    if (err) throw err;
+    console.log(req.files.image.name);
+    req.flash('info', "yeay you ads has been added!");
+    res.redirect('/ads');
+  });
+});
+
+// list ads
