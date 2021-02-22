@@ -166,3 +166,30 @@ router.post('/register', function (req, res, next) {
     });
   })
 });
+
+// profil
+router.get('/profil', function (req, res, next) {
+  pool.query('SELECT * FROM public.user WHERE iduser = $1', [req.session.user.iduser], (err, data) => {
+    if (err) throw err;
+
+    res.render('profil', { title: 'profil', user: req.session.user, data: data.rows[0], info: req.flash('info') });
+  });
+});
+
+router.post('/profil', function (erq, res, next) {
+  pool.query('UPDATE public.user SET nama = $1, email = $2, nohandphone = $3 WHERE iduser = $4', [req.body.nama, req.body.email, req.body.nohandphone, req.session.user.iduser], err => {
+    if (err) throw err;
+
+    req.flash('info', "yeay, your profile has been updated!");
+    res.redirect('/profil');
+  });
+});
+
+router.delete('/profil', function (reeq, res, next) {
+  pool.query('DELETE FROM public.user WHERE iduser = $1', [req.session.user.iduser], (err) => {
+    if (err) throw err;
+
+    req.flash('info', "your profile has been deleted! ");
+    res.redirect('/profil');
+  });
+});
