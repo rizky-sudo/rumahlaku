@@ -271,3 +271,12 @@ router.post('/editads/:id', function (req, res, next) {
     res.redirect('/editads');
   });
 });
+
+// delete ads
+router.get('/detaila/:id', function (req, res, next) {
+  pool.query('SELECT * FROM public.iklan WHERE = $1', [req..params.id], (err, data) => {
+    if (err) throw err;
+
+    res.redirect('/listads');
+  });
+});
