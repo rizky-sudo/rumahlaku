@@ -243,3 +243,31 @@ router.post('/ads', function (req, res, next) {
 });
 
 // list ads
+router.get('/listads', function (req, res, next) {
+  pool.query('SELECT * FROM public.iklan WHERE iduser = $1', [req.session.user.iduser], (err, data) => {
+    if (err) throw err;
+
+    res.render('listads', { title: 'List Ads', data: data.rows, info: req.flash('info'), user: req.session.user });
+  });
+});
+
+// edit ads
+router.get('/editads/:id', function (req, res, next) {
+  pool.query('SELECT * FROM public.iklan WHERE idiklan = $1', [req.params.id], (err, data) => {
+    if (err) throw err;
+
+    res.render('editads', { title: 'Edit Ads', data: data.rows[0], info: req.flash('info'), user: req.session.user });
+  });
+});
+
+router.post('/editads/:id', function (req, res, next) {
+  console.log(req.body);
+  const { kategori, judul, luastanah, luasbangunan, kamartidur, kamarmandi, lantai, fasilitas, carport, sertifikasi, harga, gambar, deskripsi, provinsi, kota, alamat } = req.body;
+
+  pool.query('UPDATE public.iklan SET kategori = $1, judul = $2, luastanah = $3, luasbangunan = $4, kamartidur = $5, kamarmandi = $6, lantai = $7, fasilitas = $8, carport = $9, sertifikasi = $10, harga = $11, gambar = $12, deskripsi = $13, provinsi = $14, kota = $15, alamat = $16 WHERE idiklan = $17)', [kategori, judul, luastanah, luasbangunan, kamartidur, kamarmandi, lantai, fasilitas, carport, sertifikasi, harga, gambar, deskripsi, provinsi, kota, alamat, req.params.id], (err) => {
+    if (err) throw err;
+
+    req.flash('info', "Yeay, your ads has been updated!");
+    res.redirect('/editads');
+  });
+});
