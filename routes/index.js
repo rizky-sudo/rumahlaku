@@ -274,9 +274,19 @@ router.post('/editads/:id', function (req, res, next) {
 
 // delete ads
 router.get('/detaila/:id', function (req, res, next) {
-  pool.query('SELECT * FROM public.iklan WHERE = $1', [req..params.id], (err, data) => {
+  pool.query('SELECT * FROM public.iklan WHERE = $1', [req.params.id], (err, data) => {
     if (err) throw err;
 
     res.redirect('/listads');
+  });
+});
+
+// details
+router.get('/details/:id', function (req, res, next) {
+  pool.query('SELECT * FROM public.iklan WHERE idiklan = $1', [req.params.id], (err, data)
+    => {
+    if (err) throw err;
+
+    res.render('details', { title: 'edit data', data: data.rows[0], user: req.session.user });
   });
 });
