@@ -290,3 +290,21 @@ router.get('/details/:id', function (req, res, next) {
     res.render('details', { title: 'edit data', data: data.rows[0], user: req.session.user });
   });
 });
+
+// compare
+router.get('/compare', function (req, res, next) {
+  let ids = req.query.selectedids;
+  ids = ids.replace('[', '(');
+  ids = ids.replace(']', ')');
+
+  let sql = `SELECT * FROM public.iklan WHERE idiklan IN ${ids}`;
+  console.log(sql);
+
+  pool.query(sql, (err, data) => {
+    if (err) throw err;
+    console.log(data.rows)
+    res.render('compare', { data: data.rows });
+  })
+})
+
+// 
