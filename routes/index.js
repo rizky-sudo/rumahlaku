@@ -307,4 +307,27 @@ router.get('/compare', function (req, res, next) {
   })
 })
 
-// 
+// upload images
+router.get('/upload', function (req, res) {
+  res.render('upload');
+})
+
+router.post('/upload', function (req, res) {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let gambar1 = req.files.gambar1;
+
+  // Use the mv() method to place the file somewhere on your server
+  gambar1.mv('/home/albajiligadingp/Documents/Rubicamp/Coding/rumahlaku/public/uploads/gambar1.jpg', function (err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
+
+return router;
+
