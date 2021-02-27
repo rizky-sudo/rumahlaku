@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/cfe77113ea.js" crossorigin="anonymous"></script>
+  <title>Compare Ads</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <h3><i class="fas fa-home mr-2 text-light"></i></h3>
+      <a class="navbar-brand text-light font-weight-bold" href="/">rumahlaku</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="/signout" class="btn btn-danger my-2 my-sm-0 ml-2 text-light" type="submit">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="display-5" style="text-align: center; margin-top: 70px;"><i
+        class="fas fa-home mr-2 text-dark"></i>rumahlaku</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">
+              <div class="card" style="width: 18rem;">
+                <img src="/images/rumah1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= data[0].judul %></h5>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="card" style="width: 18rem;">
+                <img src="/images/rumah1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= data[1].judul %></h5>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="card" style="width: 18rem;">
+                <img src="/images/rumah1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= data[2].judul %></h5>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="col-3">Harga</th>
+            <td class="col-3"><%= data[0].harga %></td>
+            <td class="col-3"><%= data[1].harga %></td>
+            <td class="col-3"><%= data[2].harga %></td>
+          </tr>
+          <tr>
+            <th scope="row">Luas Tanah</th>
+            <td><%= data[0].luastanah %></td>
+            <td><%= data[1].luastanah %></td>
+            <td><%= data[2].luastanah %></td>
+          </tr>
+          <tr>
+            <th scope="row">Luas Bangunan</th>
+            <td><%= data[0].luasbangunan %></td>
+            <td><%= data[1].luasbangunan %></td>
+            <td><%= data[2].luasbangunan %></td>
+          </tr>
+          <tr>
+            <th scope="row">Kamar Tidur</th>
+            <td><%= data[0].kamartidur %></td>
+            <td><%= data[1].kamartidur %></td>
+            <td><%= data[2].kamartidur %></td>
+          </tr>
+          <tr>
+            <th scope="row">Kamar Mandi</th>
+            <td><%= data[0].kamarmandi %></td>
+            <td><%= data[1].kamarmandi %></td>
+            <td><%= data[2].kamarmandi %></td>
+          </tr>
+          <tr>
+            <th scope="row">Lantai</th>
+            <td><%= data[0].lantai %></td>
+            <td><%= data[1].lantai %></td>
+            <td><%= data[2].lantai %></td>
+          </tr>
+          <tr>
+            <th scope="row">Fasilitas</th>
+            <td><%= data[0].fasilitas %></td>
+            <td><%= data[1].fasilitas %></td>
+            <td><%= data[2].fasilitas %></td>
+          </tr>
+          <tr>
+            <th scope="row">Carport</th>
+            <td><%= data[0].carport %></td>
+            <td><%= data[1].carport %></td>
+            <td><%= data[2].carport %></td>
+          </tr>
+          <tr>
+            <th scope="row">Sertifikasi</th>
+            <td><%= data[0].sertifikasi %></td>
+            <td><%= data[1].sertifikasi %></td>
+            <td><%= data[2].sertifikasi %></td>
+          </tr>
+          <tr>
+            <th scope="row">Deskripsi</th>
+            <td><%= data[0].deskripsi %></td>
+            <td><%= data[1].deskripsi %></td>
+            <td><%= data[2].deskripsi %></td>
+          </tr>
+          <tr>
+            <th scope="row">Alamat Lokasi</th>
+            <td><%= data[0].alamat %></td>
+            <td><%= data[1].alamat %></td>
+            <td><%= data[2].alamat %></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <footer class="container">
+    <p style="margin-top: 50px; text-align: center;">© Batch 23 Rubicamp 2020</p>
+</footer>
+</body>
+
+</html>
