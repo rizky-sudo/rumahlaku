@@ -1,0 +1,13 @@
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+}
+
+#drop {
+	width: 250px;
+	height: 250px;
+	padding: 20px;
+	float: left;
+  margin: 10px;
+  border: 20px;
+}
